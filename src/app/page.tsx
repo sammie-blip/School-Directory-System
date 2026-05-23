@@ -79,9 +79,9 @@ export default function LandingPage() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-white px-4 py-8">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-white px-4 py-6 sm:px-6 sm:py-8">
       <h1
-        className={`text-5xl font-bold mb-0 text-center bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent leading-tight transition-all duration-700 ${
+        className={`text-3xl sm:text-4xl md:text-5xl font-bold mb-0 text-center bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent leading-tight transition-all duration-700 ${
           mounted ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'
         }`}
       >
@@ -94,13 +94,14 @@ export default function LandingPage() {
         }`}
       >
         <div className="relative" style={{ minHeight: '620px' }}>
+          {/* Login form */}
           <div
             className={`absolute inset-0 flex items-center justify-center transition-all duration-500 ease-in-out ${
               isLogin ? 'opacity-100 scale-100 z-10' : 'opacity-0 scale-95 z-0 pointer-events-none'
             }`}
           >
-            <div className="w-full bg-gradient-to-br from-indigo-600 to-purple-600 rounded-3xl p-8 shadow-xl text-white">
-              <h2 className="text-3xl font-bold text-center mb-6">Welcome back</h2>
+            <div className="w-full bg-gradient-to-br from-indigo-600 to-purple-600 rounded-3xl p-6 sm:p-8 shadow-xl text-white">
+              <h2 className="text-2xl sm:text-3xl font-bold text-center mb-6">Welcome back</h2>
               {error && (
                 <div className="mb-4 p-3 bg-red-500/20 border border-red-400/40 rounded-xl text-red-200 text-sm animate-fade-in">
                   {error}
@@ -161,13 +162,14 @@ export default function LandingPage() {
             </div>
           </div>
 
+          {/* Signup form */}
           <div
             className={`absolute inset-0 flex items-center justify-center transition-all duration-500 ease-in-out ${
               !isLogin ? 'opacity-100 scale-100 z-10' : 'opacity-0 scale-95 z-0 pointer-events-none'
             }`}
           >
-            <div className="w-full bg-gradient-to-br from-indigo-600 to-purple-600 rounded-3xl p-8 shadow-xl text-white">
-              <h2 className="text-3xl font-bold text-center mb-6">Create account</h2>
+            <div className="w-full bg-gradient-to-br from-indigo-600 to-purple-600 rounded-3xl p-6 sm:p-8 shadow-xl text-white">
+              <h2 className="text-2xl sm:text-3xl font-bold text-center mb-6">Create account</h2>
               {error && (
                 <div className="mb-4 p-3 bg-red-500/20 border border-red-400/40 rounded-xl text-red-200 text-sm animate-fade-in">
                   {error}

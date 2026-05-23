@@ -210,12 +210,12 @@ export default function DashboardPage() {
       <header className={`bg-white shadow-sm border-b transition-all duration-500 ${
         pageReady ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'
       }`}>
-        <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-          <h1 className="text-2xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
+        <div className="max-w-7xl mx-auto px-4 py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <h1 className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
             School Directory System
           </h1>
-          <div className="flex items-center gap-3">
-            <span className="text-sm font-medium text-gray-700">
+          <div className="flex items-center gap-3 self-end sm:self-auto">
+            <span className="text-sm font-medium text-gray-700 truncate max-w-[150px] sm:max-w-none">
               {profile ? `${profile.first_name} ${profile.last_name}` : (user?.email || '')}
             </span>
             <button
@@ -228,34 +228,34 @@ export default function DashboardPage() {
         </div>
       </header>
 
-      <main className={`max-w-7xl mx-auto px-4 py-8 transition-all duration-500 delay-200 ${
+      <main className={`max-w-7xl mx-auto px-4 py-6 sm:py-8 transition-all duration-500 delay-200 ${
         pageReady ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
       }`}>
-        <div className="flex gap-4 mb-8">
+        <div className="flex flex-wrap gap-2 sm:gap-4 mb-6 sm:mb-8">
           {['students', 'teachers', 'staffs'].map(tab => (
             <button
               key={tab}
               onClick={() => { setActiveTab(tab); resetAddForm(); setShowAddModal(false); setShowEditModal(false); setShowDeleteModal(false); }}
-              className={`flex items-center gap-2 px-6 py-3 rounded-xl font-semibold transition-all duration-300 ${
+              className={`flex items-center gap-2 px-4 py-2 sm:px-6 sm:py-3 rounded-xl font-semibold text-sm sm:text-base transition-all duration-300 ${
                 activeTab === tab
                   ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-md'
                   : 'bg-white text-gray-600 hover:bg-gray-100'
               }`}
             >
-              {tab === 'students' && <Users className="w-5 h-5" />}
-              {tab === 'teachers' && <GraduationCap className="w-5 h-5" />}
-              {tab === 'staffs' && <Briefcase className="w-5 h-5" />}
+              {tab === 'students' && <Users className="w-4 h-4 sm:w-5 sm:h-5" />}
+              {tab === 'teachers' && <GraduationCap className="w-4 h-4 sm:w-5 sm:h-5" />}
+              {tab === 'staffs' && <Briefcase className="w-4 h-4 sm:w-5 sm:h-5" />}
               {tab.charAt(0).toUpperCase() + tab.slice(1)}
             </button>
           ))}
         </div>
 
-        <div key={activeTab} className="bg-white rounded-2xl shadow-sm p-6 animate-fade-in">
-          <div className="flex justify-between items-center mb-6">
+        <div key={activeTab} className="bg-white rounded-2xl shadow-sm p-4 sm:p-6 animate-fade-in">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
             <h2 className="text-xl font-bold text-gray-800 capitalize">{activeTab}</h2>
             <button
               onClick={() => { resetAddForm(); setShowAddModal(true); }}
-              className="flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-xl hover:shadow-lg transition font-semibold"
+              className="flex items-center gap-2 px-4 py-2 sm:px-5 sm:py-2.5 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-xl hover:shadow-lg transition font-semibold text-sm sm:text-base"
             >
               <Plus className="w-4 h-4" /> Add {activeTab.slice(0, -1)}
             </button>
@@ -266,12 +266,12 @@ export default function DashboardPage() {
               <Loader2 className="w-8 h-8 text-indigo-600 animate-spin" />
             </div>
           ) : (
-            <div className="overflow-x-auto">
-              <table className="w-full text-left">
+            <div className="overflow-x-auto -mx-4 sm:mx-0">
+              <table className="w-full text-left min-w-[600px] sm:min-w-0">
                 <thead>
                   <tr className="border-b">
                     {columns().map(col => (
-                      <th key={col} className="py-3 px-4 text-sm font-semibold text-gray-600">{col}</th>
+                      <th key={col} className="py-3 px-4 text-sm font-semibold text-gray-600 whitespace-nowrap">{col}</th>
                     ))}
                     <th className="py-3 px-4 text-sm font-semibold text-gray-600">Actions</th>
                   </tr>
@@ -280,7 +280,7 @@ export default function DashboardPage() {
                   {items.map(item => (
                     <tr key={item.id} className="border-b hover:bg-gray-50 transition">
                       {renderRow(item).map((val, i) => (
-                        <td key={i} className="py-3 px-4 text-gray-700">{val}</td>
+                        <td key={i} className="py-3 px-4 text-gray-700 text-sm whitespace-nowrap">{val}</td>
                       ))}
                       <td className="py-3 px-4 flex gap-2">
                         <button
@@ -310,11 +310,12 @@ export default function DashboardPage() {
         </div>
       </main>
 
+      {/* Add Modal */}
       {showAddModal && (
-        <div className={`fixed inset-0 z-50 flex items-center justify-center bg-black/50 ${addClosing ? 'animate-fade-out' : 'animate-fade-in'}`}>
+        <div className={`fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 ${addClosing ? 'animate-fade-out' : 'animate-fade-in'}`}>
           <div className={`bg-white rounded-2xl p-6 w-full max-w-md shadow-2xl ${addClosing ? 'animate-slide-down' : 'animate-slide-up'}`}>
             <div className="flex justify-between items-center mb-4">
-              <h3 className="text-xl font-bold text-gray-800">Add {activeTab.slice(0, -1)}</h3>
+              <h3 className="text-lg sm:text-xl font-bold text-gray-800">Add {activeTab.slice(0, -1)}</h3>
               <button onClick={closeAddModal} className="text-gray-400 hover:text-gray-600 transition">
                 <X className="w-5 h-5" />
               </button>
@@ -375,11 +376,12 @@ export default function DashboardPage() {
         </div>
       )}
 
+      {/* Edit Modal */}
       {showEditModal && editItem && (
-        <div className={`fixed inset-0 z-50 flex items-center justify-center bg-black/50 ${editClosing ? 'animate-fade-out' : 'animate-fade-in'}`}>
+        <div className={`fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 ${editClosing ? 'animate-fade-out' : 'animate-fade-in'}`}>
           <div className={`bg-white rounded-2xl p-6 w-full max-w-md shadow-2xl ${editClosing ? 'animate-slide-down' : 'animate-slide-up'}`}>
             <div className="flex justify-between items-center mb-4">
-              <h3 className="text-xl font-bold text-gray-800">Edit {activeTab.slice(0, -1)}</h3>
+              <h3 className="text-lg sm:text-xl font-bold text-gray-800">Edit {activeTab.slice(0, -1)}</h3>
               <button onClick={closeEditModal} className="text-gray-400 hover:text-gray-600 transition">
                 <X className="w-5 h-5" />
               </button>
@@ -440,12 +442,13 @@ export default function DashboardPage() {
         </div>
       )}
 
+      {/* Delete Modal */}
       {showDeleteModal && deleteTarget && (
-        <div className={`fixed inset-0 z-50 flex items-center justify-center bg-black/50 ${deleteClosing ? 'animate-fade-out' : 'animate-fade-in'}`}>
+        <div className={`fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 ${deleteClosing ? 'animate-fade-out' : 'animate-fade-in'}`}>
           <div className={`bg-white rounded-2xl p-6 w-full max-w-sm shadow-2xl text-center ${deleteClosing ? 'animate-slide-down' : 'animate-slide-up'}`}>
             <Trash2 className="w-10 h-10 text-red-500 mx-auto mb-3" />
             <h3 className="text-lg font-bold text-gray-800 mb-2">Delete {activeTab.slice(0, -1)}?</h3>
-            <p className="text-gray-500 mb-4">
+            <p className="text-gray-500 mb-4 text-sm">
               Are you sure you want to delete <strong>{deleteTarget.full_name}</strong>? This cannot be undone.
             </p>
             <div className="flex gap-3 justify-center">
@@ -466,12 +469,13 @@ export default function DashboardPage() {
         </div>
       )}
 
+      {/* Logout Modal */}
       {showLogoutModal && (
-        <div className={`fixed inset-0 z-50 flex items-center justify-center bg-black/50 ${logoutClosing ? 'animate-fade-out' : 'animate-fade-in'}`}>
+        <div className={`fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 ${logoutClosing ? 'animate-fade-out' : 'animate-fade-in'}`}>
           <div className={`bg-white rounded-2xl p-6 w-full max-w-sm shadow-2xl text-center ${logoutClosing ? 'animate-slide-down' : 'animate-slide-up'}`}>
             <LogOut className="w-10 h-10 text-gray-600 mx-auto mb-3" />
             <h3 className="text-lg font-bold text-gray-800 mb-2">Log out</h3>
-            <p className="text-gray-500 mb-4">Are you sure you want to log out?</p>
+            <p className="text-gray-500 mb-4 text-sm">Are you sure you want to log out?</p>
             <div className="flex gap-3 justify-center">
               <button
                 onClick={closeLogoutModal}
